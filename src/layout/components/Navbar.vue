@@ -7,23 +7,17 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar" />
-          <i class="el-icon-caret-bottom"></i>
+          <img :src="'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'" class="user-avatar" />
+          <span class="user-name">{{ user.name }}</span>
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
           <router-link to="/">
             <el-dropdown-item>
-              Home
+              {{ $t('navbar.dashboard') }}
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
-            <el-dropdown-item>Github</el-dropdown-item>
-          </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display:block;">Log Out</span>
+            <span style="display:block;">{{ $t('navbar.logOut') }}</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -32,7 +26,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
 import Breadcrumb from '@/components/Breadcrumb';
 import Hamburger from '@/components/Hamburger';
 
@@ -45,7 +39,10 @@ export default {
     ...mapGetters([
       'sidebar',
       'avatar'
-    ])
+    ]),
+    ...mapState({
+      user: state => state.user
+    })
   },
   methods: {
     toggleSideBar() {
@@ -112,17 +109,26 @@ export default {
     }
 
     .avatar-container {
-      margin-right: 30px;
+      vertical-align: top;
+      margin-right: 15px;
 
       .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-
+        cursor: pointer;
+        margin-left: 20px;
         .user-avatar {
-          cursor: pointer;
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+          display: inline-block;
+          vertical-align: middle;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+        }
+        .user-name {
+          display: inline-block;
+          vertical-align: middle;
+          margin-left: 8px;
+          line-height: 24px;
+          font-size: 14px;
+          color: #344050;
         }
 
         .el-icon-caret-bottom {
